@@ -4,6 +4,7 @@ image:
   repository: harbor.bitworm.net/reservai-prod/app
   tag: latest
   pullPolicy: IfNotPresent
+  pullSecrets: harbor-creds
 
 service:
   type: LoadBalancer

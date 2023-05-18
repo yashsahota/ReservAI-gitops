@@ -34,7 +34,7 @@ spec:
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.secrets.jwtSecret }} #####
+              name: {{ .Values.secrets.jwtSecret }}
               key: {{ .Values.secrets.jwtSecret }}
         - name: VERIFICATION_TOKEN_SECRET
           valueFrom:
@@ -61,3 +61,5 @@ spec:
             secretKeyRef:
               name: {{ .Values.secrets.oAuthCredentials }}
               key: client-secret
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecrets }}
