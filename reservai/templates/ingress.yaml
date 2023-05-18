@@ -15,6 +15,6 @@ spec:
               service:
                 name: reservai
                 port:
-                  number: 80
+                  number: {{ $.Values.ingress.port }}
         {{- end }}
   {{- end }}

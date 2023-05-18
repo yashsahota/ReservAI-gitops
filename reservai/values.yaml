@@ -7,9 +7,8 @@ image:
   pullSecrets: harbor-creds
 
 service:
-  type: LoadBalancer
-  port: 80
-  loadBalancerIP: 10.0.5.228
+  type: ClusterIP
+  port: 8080
 
 ingress:
   enabled: true
@@ -19,6 +18,7 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+  port: 8080
 
 app:
   dbHost: "postgres-postgresql.prod.svc.cluster.local"
