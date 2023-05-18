@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservai
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: reservai
+  template:
+    metadata:
+      labels:
+        app: reservai
+    spec:
+      containers:
+      - name: reservai
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: DB_HOST
+          value: {{ .Values.app.dbHost }}
+        - name: DB_NAME
+          value: {{ .Values.app.dbName }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.dbCredentials }}
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.dbCredentials }}
+              key: password
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.jwtSecret }} #####
+              key: {{ .Values.secrets.jwtSecret }}
+        - name: VERIFICATION_TOKEN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.verifyTokenSecret }}
+              key: {{ .Values.secrets.verifyTokenSecret }}
+        - name: RESET_PASSWORD_TOKEN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.passwordResetSecret }}
+              key: {{ .Values.secrets.passwordResetSecret }}
+        - name: OAUTH_STATE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.oAuthCredentials }}
+              key: state-secret
+        - name: GOOGLE_OAUTH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.oAuthCredentials }}
+              key: client-id
+        - name: GOOGLE_OAUTH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.oAuthCredentials }}
+              key: client-secret

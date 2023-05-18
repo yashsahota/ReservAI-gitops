@@ -1,0 +1,31 @@
+replicaCount: 2
+
+image:
+  repository: harbor.bitworm.net/reservai-prod/app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  loadBalancerIP: 10.0.5.228
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+    - host: reservai.net
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+app:
+  dbHost: "postgres-postgresql.prod.svc.cluster.local"
+  dbName: "reservai"
+
+secrets:
+  dbCredentials: "db-credentials"
+  jwtSecret: "jwt-secret"
+  verifyTokenSecret: "verify-token-secret"
+  passwordResetSecret: "password-reset-secret"
+  oAuthCredentials: "oauth-credentials"
