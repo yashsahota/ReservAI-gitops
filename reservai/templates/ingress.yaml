@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: reservai
 spec:
+  ingressClassName: nginx
   rules:
   {{- range .Values.ingress.hosts }}
     - host: {{ .host }}
