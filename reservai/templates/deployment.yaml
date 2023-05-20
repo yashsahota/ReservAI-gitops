@@ -12,6 +12,12 @@ spec:
       labels:
         app: reservai
     spec:
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 25%
+          maxUnavailable: 25%
+        revisionHistoryLimit: 1
       containers:
       - name: reservai
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
