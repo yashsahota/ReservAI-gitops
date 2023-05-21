@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: reservai-migration
+  name: "reservai-migration-{{ .Values.image.tag }}"
   labels:
     app: reservai
     role: migration
@@ -11,6 +11,7 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
+      ttlSecondsAfterFinished: 43200
       containers:
       - name: db-migration
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
