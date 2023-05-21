@@ -7,11 +7,12 @@ metadata:
     role: migration
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   template:
     spec:
       restartPolicy: OnFailure
-      ttlSecondsAfterFinished: 43200
       containers:
       - name: db-migration
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
