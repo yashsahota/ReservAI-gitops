@@ -12,7 +12,7 @@ spec:
       labels:
         app: reservai
     spec:
-      # revisionHistoryLimit: 1
+      revisionHistoryLimit: 1
       containers:
       - name: reservai
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
