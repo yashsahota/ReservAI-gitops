@@ -18,6 +18,10 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+    - host: bytealigned.dev
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
   port: 8080
 
 app:
